@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Caliber — Project Brief</title>
+<style>
+  :root{
+    --ink:#1a1a17; --muted:#5f5e5a; --faint:#8a887f;
+    --line:#e3e0d8; --paper:#ffffff; --panel:#f7f5ef;
+    --accent:#185FA5; --accent-bg:#E6F1FB;
+    --green:#0F6E56; --green-bg:#E1F5EE;
+    --amber:#854F0B; --amber-bg:#FAEEDA;
+    --red:#A32D2D; --red-bg:#FCEBEB;
+    --purple:#534AB7; --purple-bg:#EEEDFE;
+  }
+  *{box-sizing:border-box;}
+  @page{ size:A4; margin:18mm 16mm; }
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink); font-size:10.5pt; line-height:1.55;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  h1,h2,h3,h4{font-weight:600; line-height:1.2; margin:0;}
+  h2{font-size:17pt; margin:0 0 4px; letter-spacing:-.01em;}
+  h3{font-size:12pt; margin:18px 0 6px;}
+  p{margin:0 0 9px;}
+  a{color:var(--accent); text-decoration:none;}
+  .muted{color:var(--muted);}
+  .faint{color:var(--faint);}
+  small{font-size:8.5pt;}
+  code{font-family:"SF Mono",Menlo,monospace; font-size:9pt; background:var(--panel); padding:1px 4px; border-radius:3px;}
+
+  section{page-break-before:always; padding-top:2px;}
+  section.first{page-break-before:auto;}
+  .sec-head{display:flex; align-items:baseline; gap:10px; border-bottom:2px solid var(--ink); padding-bottom:6px; margin-bottom:14px;}
+  .sec-num{font-size:10pt; color:var(--accent); font-weight:700; letter-spacing:.05em;}
+  .lead{font-size:11.5pt; color:var(--muted);}
+
+  .cover{height:245mm; display:flex; flex-direction:column;}
+  .cover .top{flex:1;}
+  .badge{display:inline-block; font-size:8.5pt; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); background:var(--accent-bg); padding:5px 12px; border-radius:20px; font-weight:600;}
+  .title{font-size:52pt; letter-spacing:-.03em; margin:26px 0 4px; line-height:.98;}
+  .subtitle{font-size:14.5pt; color:var(--muted); max-width:140mm; line-height:1.35;}
+  .cover .meta{border-top:1px solid var(--line); padding-top:14px; display:flex; gap:34px; font-size:9.5pt; flex-wrap:wrap;}
+  .cover .meta b{display:block; font-size:8pt; text-transform:uppercase; letter-spacing:.08em; color:var(--faint); font-weight:600; margin-bottom:2px;}
+
+  .panel{background:var(--panel); border-radius:10px; padding:14px 16px; margin:0 0 12px;}
+  .accentbar{border-left:3px solid var(--accent); background:var(--accent-bg); padding:11px 15px; border-radius:0 8px 8px 0; margin:0 0 12px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .card{border:1px solid var(--line); border-radius:9px; padding:12px 14px; background:var(--paper);}
+  .card h4{margin:0 0 5px; font-size:10.5pt; font-weight:600;}
+  .card p{margin:0; font-size:9.5pt; color:var(--muted);}
+
+  table{width:100%; border-collapse:collapse; font-size:9.5pt; margin:4px 0 12px;}
+  th{text-align:left; font-size:8pt; text-transform:uppercase; letter-spacing:.05em; color:var(--faint); border-bottom:1.5px solid var(--ink); padding:6px 8px;}
+  td{padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr{page-break-inside:avoid;}
+
+  .pill{display:inline-block; font-size:8pt; font-weight:600; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .p-green{color:var(--green); background:var(--green-bg);}
+  .p-amber{color:var(--amber); background:var(--amber-bg);}
+  .p-red{color:var(--red); background:var(--red-bg);}
+  .p-accent{color:var(--accent); background:var(--accent-bg);}
+  .p-purple{color:var(--purple); background:var(--purple-bg);}
+
+  .flow{display:flex; align-items:stretch; gap:6px; margin:6px 0 14px;}
+  .flow .step{flex:1; border:1px solid var(--line); border-radius:8px; padding:9px 8px; text-align:center; background:var(--paper);}
+  .flow .step .n{font-size:8pt; color:var(--accent); font-weight:700;}
+  .flow .step .t{font-size:9pt; font-weight:600; margin-top:2px;}
+  .flow .step .d{font-size:7.5pt; color:var(--faint); margin-top:1px;}
+  .arrow{align-self:center; color:var(--faint); font-size:11pt;}
+
+  ul{margin:2px 0 10px; padding-left:18px;}
+  li{margin:0 0 4px;}
+  .tag{font-size:8pt; font-weight:600; color:var(--accent); border:1px solid var(--accent); border-radius:4px; padding:1px 6px; margin-right:4px;}
+  hr{border:none; border-top:1px solid var(--line); margin:16px 0;}
+
+  .map{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .map .box{border:1px solid var(--line); border-radius:10px; padding:13px 15px; background:var(--paper);}
+  .map .box .h{display:flex; align-items:center; gap:8px; margin-bottom:5px;}
+  .map .box .num{width:20px; height:20px; border-radius:5px; background:var(--accent-bg); color:var(--accent); font-size:9pt; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .map .box h4{font-size:11pt;}
+  .map .box p{font-size:9pt; color:var(--muted); margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="top">
+    <span class="badge">Open Atlas Hackathon · Immigration &amp; Overall</span>
+    <div class="title">Caliber</div>
+    <div class="subtitle">A transparent, AI‑powered US immigration platform. It reads your real achievements the way a USCIS officer would — telling you which visas you qualify for and why, tracking the rules that affect you, and walking you from a student visa to a green card.</div>
+  </div>
+  <div class="meta">
+    <div><b>Track</b>Best Immigration + Best Overall</div>
+    <div><b>Build window</b>~5 days · solo full‑stack / AI</div>
+    <div><b>Status</b>Design brief v2</div>
+    <div><b>Name</b>Caliber <span class="faint">(provisional)</span></div>
+  </div>
+</div>
+
+<!-- ============ 1. TL;DR ============ -->
+<section class="first">
+  <div class="sec-head"><span class="sec-num">01</span><h2>In one breath</h2></div>
+  <p class="lead">People with real, world‑class achievements routinely don't know they qualify for an O‑1 "extraordinary ability" visa — and a lawyer's eligibility assessment costs <b>$1,000–$2,000</b> and takes a week.</p>
+  <div class="accentbar">
+    <p style="margin:0"><b>Caliber</b> lets you paste your public profile — CV, publications, GitHub, a few press links — and in about a minute returns a grounded verdict: which of the legal criteria you meet, <b>why</b>, where your gaps are and how to close them, and a first‑draft petition letter. Every judgment cites the exact USCIS rule it used. It covers a whole family of achievement‑based visas, tracks live rule changes, and gives F‑1 and H‑1B holders a path forward.</p>
+  </div>
+  <div class="grid2">
+    <div class="card"><h4>Who it's for</h4><p>Foreign‑born researchers, engineers, founders and creatives in the US (or hoping to be) — from F‑1 students to O‑1/green‑card candidates who can't afford to find out where they stand.</p></div>
+    <div class="card"><h4>Why it wins</h4><p>Real multi‑agent AI doing a lawyer's judgment work, grounded in real law, honest about its limits, in a polished end‑to‑end product with a platform story.</p></div>
+  </div>
+  <h3>The one‑line pitch</h3>
+  <p>"Caliber reads your achievements the way a US immigration officer would, argues both sides of each legal criterion, and hands you a transparent scorecard plus a draft petition — turning a $2,000, week‑long lawyer assessment into a free, 60‑second one, for a whole family of visas."</p>
+</section>
+
+<!-- ============ 2. PROBLEM ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>The problem &amp; who it affects</h2></div>
+  <p>The O‑1 and EB‑1A are US pathways for people of "extraordinary ability." Unlike the H‑1B, they have <b>no lottery and no annual cap</b> — but they're poorly understood, so thousands of genuinely qualified people never pursue them. Meanwhile F‑1 students and H‑1B workers face a maze of deadlines and odds with no clear map.</p>
+  <h3>Three real frictions</h3>
+  <div class="grid2">
+    <div class="card"><h4>You don't know if you qualify</h4><p>Eligibility hinges on meeting a set of dense legal criteria most people can't map to their own résumé.</p></div>
+    <div class="card"><h4>Finding out is expensive</h4><p>A lawyer's assessment is $1,000–$2,000 and days of back‑and‑forth, just to learn <i>whether</i> it's worth filing.</p></div>
+    <div class="card"><h4>The advice is opaque</h4><p>You get a yes/no, rarely the <i>why</i>, and almost never a concrete plan to strengthen a weak case.</p></div>
+    <div class="card"><h4>Who this hits</h4><p>International students on the H‑1B cliff, foreign‑trained researchers, immigrant founders — exactly the Open Atlas audience.</p></div>
+  </div>
+  <div class="panel"><p style="margin:0"><b>The gap in the market:</b> today you get either a <i>free static quiz</i> that just asks you to self‑rate, or an <i>expensive opaque service</i>. Nothing does the actual reasoning, transparently, for free — or connects the visas into one journey.</p></div>
+</section>
+
+<!-- ============ 3. FULL PRODUCT / SITE MAP ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>The full product</h2></div>
+  <p class="lead">One platform, four connected areas. Landing → Google sign‑in → dashboard, with:</p>
+  <div class="map">
+    <div class="box"><div class="h"><span class="num">1</span><h4>Assessment engine</h4></div><p>Paste your profile → adversarial agent panel → scorecard (met criteria, why, gaps, draft letter, PDF). Covers a family of achievement‑based visas — see §05.</p></div>
+    <div class="box"><div class="h"><span class="num">2</span><h4>F‑1 / H‑1B pathway</h4></div><p>A lighter, rules‑based tool: H‑1B lottery odds, F‑1 STEM‑OPT eligibility, status timeline — and a bridge into the assessment engine. See §09.</p></div>
+    <div class="box"><div class="h"><span class="num">3</span><h4>Policy Watch</h4></div><p>Live feed of recent immigration rule changes, AI‑summarized and classified by visa (incl. F‑1 &amp; H‑1B), with personalized alerts. See §10.</p></div>
+    <div class="box"><div class="h"><span class="num">4</span><h4>Saved history</h4></div><p>Your past assessments and alerts, tied to your Google account — the reason to sign in and come back.</p></div>
+  </div>
+  <div class="accentbar"><p style="margin:0"><b>The platform story:</b> we meet you as an F‑1 student, show you your H‑1B odds and their limits, then walk you to an O‑1 or a green card — tracking the rules that change along the way. That's a journey, not a quiz.</p></div>
+</section>
+
+<!-- ============ 4. HOW IT WORKS (SIMPLE) ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>How the assessment works — simple version</h2></div>
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div class="t">Sign in</div><div class="d">Google login</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">2</div><div class="t">Pick a visa</div><div class="d">O‑1A, EB‑1A…</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">3</div><div class="t">Paste profile</div><div class="d">CV + links</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">4</div><div class="t">It analyzes</div><div class="d">~60 sec</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">5</div><div class="t">Scorecard</div><div class="d">4/8, with why</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">6</div><div class="t">Act + export</div><div class="d">runway · letter · PDF</div></div>
+  </div>
+  <p><b>1 · You land &amp; sign in.</b> One line explains it; you sign in with Google so assessments are saved.</p>
+  <p><b>2 · You pick a visa.</b> A selector — O‑1A, EB‑1A, O‑1B, and more. The same engine drives each; only the rule set changes.</p>
+  <p><b>3 · You give it your stuff.</b> Paste links you already have — publications, GitHub, a company page, a couple of news articles — and optionally drag in your résumé PDF. Add a couple of facts a link can't tell it (field, salary range). Hit <i>Analyze</i>.</p>
+  <p><b>4 · It works, and you watch it think.</b> "Reading your profile… mapping evidence… checking the USCIS standard…" — visible reasoning, not a canned form.</p>
+  <p><b>5 · The scorecard.</b> Verdict up top (e.g. <i>4 of 8 — likely eligible</i>). Each criterion shows Met / Partial / Gap, a one‑line reason, and a link to the exact USCIS rule behind it.</p>
+  <p><b>6 · You act &amp; leave with something.</b> <i>Draft petition letter</i> writes the argument from your Met criteria. <i>See gap runway</i> gives each gap a concrete plan. Download the PDF — the exact thing you'd hand a real lawyer, minus their $2,000 fee.</p>
+</section>
+
+<!-- ============ 5. VISA COVERAGE ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Visa coverage — two kinds of tool</h2></div>
+  <p>Caliber's scorecard engine answers one shape of question: <i>"do your achievements meet N of M legal criteria?"</i> Some visas are that shape; F‑1 and H‑1B are not — so they get a different, rules‑based tool (§09). Nothing is shoehorned.</p>
+
+  <h3>Assessment engine — evidence‑scored visas</h3>
+  <p class="faint" style="margin-top:-2px"><small>Same engine, one config pack (criteria list + threshold + policy text) per visa.</small></p>
+  <table>
+    <tr><th>Visa</th><th>What it's for</th><th>Rule</th><th>Scope</th></tr>
+    <tr><td><b>O‑1A</b></td><td>Extraordinary ability — sciences, business, athletics</td><td>3 of 8</td><td><span class="pill p-green">Hero · deep</span></td></tr>
+    <tr><td><b>EB‑1A</b></td><td>Extraordinary‑ability green card</td><td>3 of 10</td><td><span class="pill p-green">Demo pack</span></td></tr>
+    <tr><td><b>O‑1B</b></td><td>Extraordinary ability — arts</td><td>3 of 6</td><td><span class="pill p-amber">Stretch pack</span></td></tr>
+    <tr><td><b>EB‑1B</b></td><td>Outstanding professor / researcher</td><td>2 of 6</td><td><span class="pill p-amber">Stretch pack</span></td></tr>
+    <tr><td><b>EB‑2 NIW</b></td><td>National interest waiver</td><td>3‑prong test</td><td><span class="pill p-amber">Stretch pack</span></td></tr>
+  </table>
+
+  <h3>Pathway module — F‑1 &amp; H‑1B</h3>
+  <p class="faint" style="margin-top:-2px"><small>Not evidence‑scored — these are rules, odds, and timelines, plus a bridge into the engine above.</small></p>
+  <table>
+    <tr><th>Visa</th><th>What it's for</th><th>Tool shape</th><th>Scope</th></tr>
+    <tr><td><b>H‑1B</b></td><td>Specialty‑occupation worker (lottery, capped)</td><td>Odds + eligibility + pathway</td><td><span class="pill p-accent">Lean module</span></td></tr>
+    <tr><td><b>F‑1</b></td><td>Student (+ OPT / STEM OPT)</td><td>Eligibility + status timeline</td><td><span class="pill p-accent">Lean module</span></td></tr>
+  </table>
+  <div class="panel"><p style="margin:0"><b>Why include F‑1/H‑1B at all:</b> they're the largest slice of the audience and the natural <i>on‑ramp</i>. The bridge funnels them into the O‑1/EB‑1A engine — turning "an O‑1 checker" into "a company that owns the immigrant's whole journey."</p></div>
+</section>
+
+<!-- ============ 6. NOVELTY ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>What makes it different</h2></div>
+  <p>The category isn't empty — and the judges know it. Caliber's edge isn't "first," it's <b>mechanism + honesty</b>.</p>
+  <table>
+    <tr><th>What exists today</th><th>What it does</th><th>Caliber's difference</th></tr>
+    <tr><td>Law‑firm eligibility quizzes</td><td>Ask you to self‑rate; funnel to a paid service</td><td>We read your real evidence and decide the mapping for you</td></tr>
+    <tr><td>AI petition drafters (paid)</td><td>Generate documents behind a black box</td><td>Every score cites the real USCIS rule — transparent, not opaque</td></tr>
+    <tr><td>ChatGPT "do I qualify?"</td><td>Plausible, ungrounded, uncited guess</td><td>Grounded retrieval + adversarial checking + deterministic verdict</td></tr>
+  </table>
+  <h3>The four defensible wedges</h3>
+  <div class="grid2">
+    <div class="card"><h4>1 · Evidence → criterion mapping</h4><p>The AI decides which criterion each achievement supports and how strongly — the lawyer's judgment work, not a self‑report form.</p></div>
+    <div class="card"><h4>2 · Grounded &amp; cited</h4><p>Every verdict links to the specific USCIS Policy Manual passage it reasoned from. No invented law.</p></div>
+    <div class="card"><h4>3 · Gap runway, not yes/no</h4><p>The valuable output is the plan to close a weak case — nobody self‑serve does this.</p></div>
+    <div class="card"><h4>4 · The RFE predictor</h4><p>An "Examiner" agent argues how an officer would push back <i>before you file</i> — a genuinely novel output.</p></div>
+  </div>
+</section>
+
+<!-- ============ 7. AI vs DETERMINISTIC ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><h2>The core principle: AI proposes, code disposes</h2></div>
+  <p class="lead">This is the design decision that makes Caliber accurate enough to trust — and proves it's a system, not an API key with a UI.</p>
+  <div class="accentbar"><p style="margin:0"><b>The rule:</b> the LLM <b>extracts evidence and argues</b> each criterion. Deterministic code holds the legal rules, does <b>all counting and math</b>, and renders the <b>final verdict</b>. Retrieval guarantees every claim points to real law. The AI never decides the outcome — it informs a rule that does.</p></div>
+  <div class="grid2">
+    <div>
+      <h3>Deterministic — code / rules / data</h3>
+      <ul>
+        <li><b>The verdict itself</b> — counting "≥N of M met" is a rule, not an opinion.</li>
+        <li><b>Criteria &amp; thresholds</b> — hardcoded per visa from the regulations.</li>
+        <li><b>Citation grounding</b> — the AI can only cite policy passages that exist in the store.</li>
+        <li><b>H‑1B odds &amp; salary percentile</b> — real math on real published data.</li>
+        <li><b>Counts</b> — citations, stars, publications fetched from APIs, never estimated.</li>
+        <li><b>STEM‑OPT check</b> — lookup against the DHS designated‑degree list.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>AI‑handled — the right job for an LLM</h3>
+      <ul>
+        <li><b>Extraction</b> — messy PDF/HTML → structured evidence.</li>
+        <li><b>Mapping</b> — which criterion a given achievement supports.</li>
+        <li><b>Per‑criterion reasoning</b> — the Advocate / Examiner arguments.</li>
+        <li><b>Gap advice</b> — contextual, field‑specific runway.</li>
+        <li><b>Drafting</b> — Met criteria + evidence → petition prose.</li>
+        <li><b>Policy summaries</b> — dense rules → plain language + "affects you."</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel"><p style="margin:0; font-size:9.5pt"><b>Why this answers "aren't you just wrapping an API?"</b> The decision layer is ours. The model is a bounded extractor/reasoner inside guardrails it can't override.</p></div>
+</section>
+
+<!-- ============ 8. AGENT ARCHITECTURE ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">08</span><h2>The multi‑agent architecture</h2></div>
+  <p>US visa adjudication is <b>inherently adversarial</b>: a lawyer files the strongest case, an officer looks for reasons to deny (a "Request for Evidence"). Caliber mirrors that with a per‑criterion panel — so the structure reflects reality, not novelty for its own sake.</p>
+  <h3>The panel — run per criterion</h3>
+  <table>
+    <tr><th>Agent</th><th>Role</th><th>Real‑world analog</th></tr>
+    <tr><td><b>Advocate</b></td><td>Argues the evidence <i>meets</i> this criterion, citing the strongest facts</td><td>The petitioner's lawyer</td></tr>
+    <tr><td><b>Examiner</b></td><td>Argues why USCIS would <i>reject</i> it — surfaces the likely RFE</td><td>The adjudicating officer</td></tr>
+    <tr><td><b>Adjudicator</b></td><td>Weighs both against retrieved policy → Met / Partial / Gap + confidence + reasoning</td><td>The decision</td></tr>
+  </table>
+  <div class="panel"><p style="margin:0"><b>Then code takes over:</b> it counts the Met criteria and applies the N‑of‑M rule. The panel judges each criterion; <b>it never decides the overall verdict.</b></p></div>
+  <h3>The full graph</h3>
+  <div class="flow">
+    <div class="step"><div class="t">Extractor</div><div class="d">input → evidence</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Panels ×M</div><div class="d">Advocate/Examiner/Adjudicator</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Counter (code)</div><div class="d">N‑of‑M rule</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Drafter</div><div class="d">→ petition letter</div></div>
+  </div>
+  <div class="accentbar"><p style="margin:0"><b>Efficiency (deliberate):</b> the full 3‑agent panel only spins up on <i>borderline</i> criteria — a slam‑dunk Met or an obvious Gap resolves in a single pass. Cheaper, faster, and it's exactly the contested criteria where the two‑sided argument is worth showing on camera.</p></div>
+  <p><b>Standout feature:</b> the Examiner's objections <i>are</i> an RFE predictor — "here's how an officer would push back, before you file." That's the 20‑second clip that carries the demo video.</p>
+</section>
+
+<!-- ============ 9. F-1 / H-1B PATHWAY ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">09</span><h2>The F‑1 / H‑1B pathway module</h2></div>
+  <p class="lead">A different, lighter tool — mostly deterministic rules and published data, AI only for the plain‑language explanation and the "which path next" reasoning.</p>
+  <h3>H‑1B</h3>
+  <table>
+    <tr><th>Tool</th><th>How</th></tr>
+    <tr><td><b>Lottery odds calculator</b></td><td>Real math on USCIS's published registration + selection counts per cap season</td></tr>
+    <tr><td><b>Specialty‑occupation / degree match</b></td><td>Rules + AI reading a user‑provided job description vs. your degree</td></tr>
+    <tr><td><b>Cap‑exempt check</b></td><td>University / nonprofit? Rule‑based</td></tr>
+  </table>
+  <h3>F‑1</h3>
+  <table>
+    <tr><th>Tool</th><th>How</th></tr>
+    <tr><td><b>STEM‑OPT eligibility</b></td><td>Lookup against the DHS designated STEM‑degree list (CIP code)</td></tr>
+    <tr><td><b>OPT / status timeline</b></td><td>Rules‑based tree — 12mo OPT, +24mo STEM, grace periods, unemployment limits</td></tr>
+    <tr><td><b>The H‑1B cliff planner</b></td><td>"OPT runs out here → your options are…"</td></tr>
+  </table>
+  <div class="accentbar"><p style="margin:0"><b>The bridge (the strategic payoff):</b> <i>"Your H‑1B lottery odds are ~26%. Here's your backup: based on your profile you may already meet 3 of the O‑1A criteria →"</i> — one click into the assessment engine. This is why F‑1/H‑1B earn their place: they funnel the biggest audience into the strongest asset.</p></div>
+</section>
+
+<!-- ============ 10. POLICY WATCH ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">10</span><h2>Policy Watch — living rule tracking</h2></div>
+  <p>A feed of recent US immigration changes, AI‑summarized and classified by visa — <b>including F‑1 and H‑1B</b>, which affect the widest audience. This is what turns Caliber from a one‑time quiz into a product you return to.</p>
+  <h3>Each update card shows</h3>
+  <p><span class="tag">what</span> changed · <span class="tag">who</span> is affected · <span class="tag">visa</span> tags · <span class="tag">effective</span> date · plain‑language summary · link to the source rule.</p>
+  <h3>Where the AI does real work</h3>
+  <div class="grid3">
+    <div class="card"><h4>Summarize</h4><p>Dense Federal Register legalese → one clear sentence.</p></div>
+    <div class="card"><h4>Classify</h4><p>Tag each change to visa types + an impact level.</p></div>
+    <div class="card"><h4>Personalize</h4><p>Cross‑reference a change against the user's saved assessment: "affects criterion 3 on your scorecard."</p></div>
+  </div>
+  <div class="panel"><p style="margin:0"><b>Deterministic vs AI:</b> code fetches the Federal Register API, date‑filters, dedups, and pulls effective dates from structured fields; the AI summarizes, classifies, and reasons about personal impact.</p></div>
+  <p><small><b>Honest caveat (stated in the demo):</b> major rule changes don't happen every month for every visa. The feed shows <b>real</b> Federal Register items — volume varies, and we never fabricate a change. F‑1 and H‑1B churn most, so they anchor the feed.</small></p>
+</section>
+
+<!-- ============ 11. DATA SOURCES ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">11</span><h2>Data sources — only what's genuinely available online</h2></div>
+  <p>Every source below is reachable with a free, online API or a public dataset. Anything that isn't (e.g. LinkedIn, which has no usable API and blocks scraping) has been <b>cut from scope</b> — nothing on the critical path depends on a source that will fail on demo day.</p>
+  <table>
+    <tr><th>Data need</th><th>Source</th><th>Status</th></tr>
+    <tr><td>Criteria + thresholds (all visas)</td><td>8 CFR 214.2 / 204.5 — public domain</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>USCIS Policy Manual text (grounding)</td><td>uscis.gov — public domain</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Publications + citation counts</td><td>OpenAlex API — free, no key</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Code impact (repos, stars)</td><td>GitHub REST API — free w/ token</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Résumé / CV</td><td>User‑uploaded PDF → parsed</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Press / media coverage</td><td>User‑pasted article links → AI evaluates</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>H‑1B lottery odds</td><td>USCIS cap‑season registration/selection stats</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>F‑1 STEM‑OPT eligibility</td><td>DHS designated STEM‑degree list</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Rule‑change feed (Policy Watch)</td><td>Federal Register API — free JSON</td><td><span class="pill p-green">Available</span></td></tr>
+    <tr><td>Salary percentile (top‑10% check)</td><td>BLS OES public wage dataset</td><td><span class="pill p-amber">Available, sampled</span></td></tr>
+    <tr><td>LinkedIn import</td><td>No usable API</td><td><span class="pill p-red">Cut</span></td></tr>
+  </table>
+  <p><small><b>On the sampled item:</b> BLS wage data is free and online but bulky. The demo loads a real BLS snapshot for common occupations; full coverage is a post‑hackathon plumbing task — stated openly, not hidden.</small></p>
+</section>
+
+<!-- ============ 12. TECH STACK ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">12</span><h2>Tech stack</h2></div>
+  <p class="lead">Lean, one language where possible, free at every layer. Fewest moving parts wins a 5‑day solo build.</p>
+  <table>
+    <tr><th>Layer</th><th>Choice</th><th>Why</th></tr>
+    <tr><td>Framework</td><td>Next.js (App Router) + TypeScript</td><td>UI + API in one app, one deploy</td></tr>
+    <tr><td>UI</td><td>Tailwind + shadcn/ui</td><td>The clean product look, fast</td></tr>
+    <tr><td>Auth</td><td>Auth.js (NextAuth) — Google OAuth</td><td>Real sign‑in + saved per‑user history</td></tr>
+    <tr><td>LLM</td><td>Google Gemini (2.5 Flash) — free tier</td><td>Free, native JSON output, 1M‑token context fits the policy manual</td></tr>
+    <tr><td>Agent orchestration</td><td>Vercel AI SDK / thin TS loop</td><td>Runs the panel graph in‑app, no Python service</td></tr>
+    <tr><td>Knowledge / retrieval</td><td>Curated policy chunks + embeddings</td><td>Criterion→law is a fixed lookup; semantic search for gap advice</td></tr>
+    <tr><td>Data fetchers</td><td>GitHub, OpenAlex, Federal Register APIs</td><td>Real deterministic data</td></tr>
+    <tr><td>Storage</td><td>Postgres (Neon/Supabase free tier)</td><td>Users, assessments, cached updates</td></tr>
+    <tr><td>PDF export</td><td>Browser print‑to‑PDF (CSS <code>@media print</code>)</td><td>No PDF library needed</td></tr>
+    <tr><td>Deploy</td><td>Vercel</td><td>Instant, free, live demo URL</td></tr>
+  </table>
+  <div class="panel"><p style="margin:0"><b>Optional bonus prize:</b> the agent graph is a natural fit for <b>Render Workflows</b>. If time allows on day 4, moving orchestration there takes a shot at the "Best use of Render Workflows" prize with little rework. Marked optional — must not slow the core build.</p></div>
+</section>
+
+<!-- ============ 13. SYSTEM FLOW ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">13</span><h2>End‑to‑end system flow</h2></div>
+  <p>How an assessment moves through the system, from click to PDF:</p>
+  <div class="panel" style="font-size:9.5pt; line-height:1.9">
+    <p style="margin:0 0 3px"><span class="tag">1</span> <b>Auth</b> — user signs in with Google (Auth.js). Session tied to their account.</p>
+    <p style="margin:0 0 3px"><span class="tag">2</span> <b>Select</b> — user picks a visa; the engine loads that visa's rule pack.</p>
+    <p style="margin:0 0 3px"><span class="tag">3</span> <b>Ingest</b> — links + résumé submitted. Server fetches GitHub + OpenAlex, parses the PDF.</p>
+    <p style="margin:0 0 3px"><span class="tag">4</span> <b>Extract</b> — Extractor agent turns everything into a structured evidence list (typed JSON).</p>
+    <p style="margin:0 0 3px"><span class="tag">5</span> <b>Retrieve</b> — each criterion paired with its governing policy text (fixed map) + relevant examples (semantic search).</p>
+    <p style="margin:0 0 3px"><span class="tag">6</span> <b>Deliberate</b> — per‑criterion panel returns Met/Partial/Gap + reasoning + citations. Full panel only on borderline criteria.</p>
+    <p style="margin:0 0 3px"><span class="tag">7</span> <b>Decide</b> — code counts Met criteria, applies the N‑of‑M rule, computes any numeric checks. This is the verdict.</p>
+    <p style="margin:0 0 3px"><span class="tag">8</span> <b>Present</b> — scorecard renders: verdict, per‑criterion cards, gap runway.</p>
+    <p style="margin:0"><span class="tag">9</span> <b>Act &amp; export</b> — Drafter agent writes the petition letter on request; user downloads the full PDF.</p>
+  </div>
+  <p><small>Data trust boundary: user‑supplied links and files are treated as untrusted input — fetched server‑side, parsed, and never used to drive actions beyond this assessment.</small></p>
+</section>
+
+<!-- ============ 14. SCOPE & FEASIBILITY ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">14</span><h2>Scope for 5 days &amp; feasibility</h2></div>
+  <h3>Build order — core loop first</h3>
+  <table>
+    <tr><th>Priority</th><th>Scope</th></tr>
+    <tr><td><span class="pill p-green">Must‑have</span></td><td>Google auth · visa selector · ingest (links + résumé) · GitHub + OpenAlex fetch · Extractor · per‑criterion panel · deterministic count · scorecard UI · PDF export · deploy — for <b>O‑1A</b></td></tr>
+    <tr><td><span class="pill p-amber">Should‑have</span></td><td><b>EB‑1A</b> pack · gap runway · draft petition letter · <b>Policy Watch</b> feed · lean <b>F‑1/H‑1B</b> pathway (odds + STEM‑OPT + bridge) · saved history</td></tr>
+    <tr><td><span class="pill p-accent">Stretch</span></td><td>O‑1B / EB‑1B / NIW packs · personalized Policy Watch alerts · BLS salary check · Render Workflows</td></tr>
+  </table>
+  <h3>Risks &amp; how they're handled</h3>
+  <div class="grid2">
+    <div class="card"><h4>Accuracy / hallucinated law</h4><p>Grounding + deterministic verdict; the model can't invent criteria or cite non‑existent policy.</p></div>
+    <div class="card"><h4>Latency (many agent calls)</h4><p>Panel only runs full on borderline criteria; parallelize criteria; Gemini Flash is fast.</p></div>
+    <div class="card"><h4>Data source down</h4><p>Every critical source is user‑provided or a stable free API; graceful fallback to résumé‑only.</p></div>
+    <div class="card"><h4>Scope creep</h4><p>Strict must/should/stretch split; nothing on the critical path depends on a stretch item.</p></div>
+  </div>
+</section>
+
+<!-- ============ 15. JUDGING & NEXT ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">15</span><h2>Judging alignment &amp; what's next</h2></div>
+  <h3>Against the four criteria (25% each)</h3>
+  <table>
+    <tr><th>Criterion</th><th>How Caliber scores</th></tr>
+    <tr><td><b>Impact</b></td><td>Replaces a $2,000, week‑long barrier with a free 60‑second one, and connects the whole immigrant journey (F‑1 → green card) for an underserved, high‑need group.</td></tr>
+    <tr><td><b>Creativity &amp; originality</b></td><td>Adversarial per‑criterion panel + the RFE predictor + living Policy Watch: framings no existing tool ships.</td></tr>
+    <tr><td><b>Technical execution</b></td><td>Multi‑agent orchestration, grounded retrieval, a real AI/deterministic split, live data APIs — a system, not a wrapper.</td></tr>
+    <tr><td><b>Feasibility</b></td><td>Every data source is available online today; honest about the one sampled dataset. It actually runs.</td></tr>
+  </table>
+  <h3>Prize fit</h3>
+  <p><b>Best Immigration Solution</b> (O‑1 filing, $8k) — the demo shows the exact thing the prize enables, judged by O‑1 experts. <b>Best Overall</b> ($2,500) — cleanest end‑to‑end product wins; polish + honesty is the play.</p>
+  <h3>What's next after the hackathon</h3>
+  <ul>
+    <li>Full BLS wage integration across all occupations.</li>
+    <li>Deepen O‑1B / EB‑1B / NIW into first‑class assessments.</li>
+    <li>Evidence‑collection workflow: turn a gap runway into tracked tasks.</li>
+    <li>Optional human‑lawyer handoff — export the packet straight to a partner firm.</li>
+  </ul>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">A</span><h2>Appendix — the 8 O‑1A criteria</h2></div>
+  <p>An O‑1A petition must demonstrate at least <b>three</b> of the following (per 8 CFR 214.2(o)(3)(iii)). This is the fixed skeleton the engine reasons against; each other visa swaps in its own list.</p>
+  <table>
+    <tr><th>#</th><th>Criterion</th><th>Primary evidence source in Caliber</th></tr>
+    <tr><td>1</td><td>Nationally/internationally recognized awards</td><td>Résumé + user input</td></tr>
+    <tr><td>2</td><td>Membership requiring outstanding achievement</td><td>Résumé + user input</td></tr>
+    <tr><td>3</td><td>Published material about you</td><td>User‑pasted press links</td></tr>
+    <tr><td>4</td><td>Judging the work of others</td><td>Résumé (peer review, panels)</td></tr>
+    <tr><td>5</td><td>Original contributions of major significance</td><td>GitHub + OpenAlex</td></tr>
+    <tr><td>6</td><td>Scholarly articles</td><td>OpenAlex</td></tr>
+    <tr><td>7</td><td>Critical role for distinguished organizations</td><td>Résumé + user input</td></tr>
+    <tr><td>8</td><td>High salary / remuneration</td><td>User input vs BLS data</td></tr>
+  </table>
+  <hr>
+  <p class="faint"><small>Caliber · Open Atlas Hackathon design brief v2 · Not legal advice. Caliber provides informational self‑assessment only and is not a substitute for a licensed immigration attorney.</small></p>
+</section>
+
+</body>
+</html>
