@@ -21,7 +21,7 @@ export default async function VisaInput({
     <div className="flex min-h-screen flex-col">
       <AppHeader email={session.user?.email} />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
         <Link href="/assess/new" className="text-sm text-muted hover:text-ink">
           ← Choose a different visa
         </Link>
