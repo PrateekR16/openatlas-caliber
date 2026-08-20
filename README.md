@@ -28,15 +28,20 @@ Caliber's bet: the assessment itself — reading evidence against a legal standa
 
 ## Product Walkthrough
 
-| 1. Evidence Intake | 2. Live Extraction |
+| 1. Visa Selection | 2. Evidence Intake |
 |:---:|:---:|
-| ![Evidence Intake](docs/screenshots/01-evidence-intake.png) | ![Evidence Gathered](docs/screenshots/02-evidence-gathered.png) |
-| *Domain selection & automated source aggregation (GitHub, OpenAlex, Résumé PDF, Media).* | *Real-time parsing of candidate metrics, repositories, citations, and background.* |
+| ![Visa Selection](docs/screenshots/00-visa-selection.png) | ![Evidence Intake](docs/screenshots/01-evidence-intake.png) |
+| *Select from O-1A, EB-1A, O-1B, EB-1B, and EB-2 NIW pathways.* | *Domain selection & automated source aggregation (GitHub, OpenAlex, Résumé PDF, Media).* |
 
-| 3. Criterion-Tagged Evidence Mapping | 4. Adversarial Panel Verdict |
+| 3. Live Extraction | 4. Criterion Evidence Mapping |
 |:---:|:---:|
-| ![Extracted Criteria Mapping](docs/screenshots/03-extracted-criteria-mapping.png) | ![Adversarial Panel Verdict](docs/screenshots/04-adversarial-panel-verdict.png) |
-| *Structured evidence items mapped against legal criteria for adversarial reasoning.* | *Transparent Advocate, Examiner, and Adjudicator arguments with step-by-step gap guidance.* |
+| ![Evidence Gathered](docs/screenshots/02-evidence-gathered.png) | ![Extracted Criteria Mapping](docs/screenshots/03-extracted-criteria-mapping.png) |
+| *Real-time parsing of candidate metrics, repositories, citations, and background.* | *Structured evidence items mapped against legal criteria for adversarial reasoning.* |
+
+| 5. Adversarial Panel Verdict | 6. Strategic Action Plan |
+|:---:|:---:|
+| ![Adversarial Panel Verdict](docs/screenshots/04-adversarial-panel-verdict.png) | ![Strategic Action Plan](docs/screenshots/06-strategic-action-plan.png) |
+| *Transparent Advocate, Examiner, and Adjudicator arguments with step-by-step gap guidance.* | *Phased 30/60/180-day roadmap with concrete gap-closing action items.* |
 
 ## Agentic architecture
 
