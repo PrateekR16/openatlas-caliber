@@ -3,9 +3,8 @@ import { auth } from "@/auth";
 import { getAssessmentById, listTasksForAssessment } from "@/lib/db";
 import { getVisa } from "@/lib/visas";
 import { AppHeader } from "@/components/AppHeader";
-import { EvidenceReRunPanel } from "./EvidenceReRunPanel";
+import { AssessmentTabs } from "./AssessmentTabs";
 import { DeleteAssessmentButton } from "./DeleteAssessmentButton";
-import { AssessmentTaskEditor } from "./AssessmentTaskEditor";
 import type { PanelResult } from "@/lib/agents/panel";
 import type { EvidenceItem } from "@/lib/agents/extractor";
 
@@ -27,7 +26,7 @@ export default async function AssessmentDetailPage(props: { params: Promise<{ id
     <div className="flex min-h-screen flex-col">
       <AppHeader email={session.user.email} />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3">
@@ -45,20 +44,13 @@ export default async function AssessmentDetailPage(props: { params: Promise<{ id
           <DeleteAssessmentButton id={assessment.id} />
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="mb-6 text-xl font-semibold tracking-tight">Assessment Result</h2>
-            <EvidenceReRunPanel
-              assessmentId={assessment.id}
-              initialResult={result}
-              initialEvidence={((assessment as unknown as { evidence?: EvidenceItem[] }).evidence) ?? []}
-            />
-          </div>
-
-          <div>
-            <h2 className="mb-6 text-xl font-semibold tracking-tight">Action Plan</h2>
-            <AssessmentTaskEditor assessmentId={assessment.id} initialTasks={tasks} />
-          </div>
+        <div className="mt-12">
+          <AssessmentTabs
+            assessmentId={assessment.id}
+            initialResult={result}
+            initialEvidence={((assessment as unknown as { evidence?: EvidenceItem[] }).evidence) ?? []}
+            initialTasks={tasks}
+          />
         </div>
       </main>
     </div>

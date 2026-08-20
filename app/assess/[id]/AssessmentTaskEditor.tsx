@@ -15,6 +15,7 @@ export function AssessmentTaskEditor({
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [newTaskTimeframe, setNewTaskTimeframe] = useState("30_days");
   const [isAdding, setIsAdding] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const toggleTask = async (id: string, currentlyCompleted: boolean) => {
     setTasks((prev) =>
@@ -101,6 +102,7 @@ export function AssessmentTaskEditor({
       setNewTaskTitle("");
       setNewTaskDescription("");
       setNewTaskTimeframe("30_days");
+      setIsFormOpen(false);
     } catch (err) {
       console.error(err);
     } finally {
@@ -110,6 +112,57 @@ export function AssessmentTaskEditor({
 
   return (
     <div className="space-y-6">
+      <div className="flex items-center justify-end">
+        <button
+          type="button"
+          onClick={() => setIsFormOpen((o) => !o)}
+          className="rounded-lg border border-line px-3 py-1.5 text-sm font-medium transition hover:border-accent hover:text-accent"
+        >
+          {isFormOpen ? "Cancel" : "+ Add task"}
+        </button>
+      </div>
+
+      {isFormOpen && (
+        <form onSubmit={addTask} className="rounded-xl border border-line bg-card p-4">
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Task title"
+              className="w-full rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
+              value={newTaskTitle}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Task description"
+              className="w-full rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
+              value={newTaskDescription}
+              onChange={(e) => setNewTaskDescription(e.target.value)}
+              required
+              rows={2}
+            />
+            <div className="flex items-center gap-3">
+              <select
+                className="rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
+                value={newTaskTimeframe}
+                onChange={(e) => setNewTaskTimeframe(e.target.value)}
+              >
+                <option value="30_days">30 days</option>
+                <option value="60_days">60 days</option>
+                <option value="180_days">180 days</option>
+              </select>
+              <button
+                type="submit"
+                disabled={isAdding}
+                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-50"
+              >
+                {isAdding ? "Adding..." : "Add task"}
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
       {tasks.length === 0 ? (
         <p className="text-sm text-muted">No tasks available.</p>
       ) : (
@@ -157,46 +210,6 @@ export function AssessmentTaskEditor({
           ))}
         </div>
       )}
-
-      <form onSubmit={addTask} className="rounded-xl border border-line bg-card p-4">
-        <h3 className="mb-3 text-sm font-semibold tracking-tight">Add a task</h3>
-        <div className="space-y-3">
-          <input
-            type="text"
-            placeholder="Task title"
-            className="w-full rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
-            value={newTaskTitle}
-            onChange={(e) => setNewTaskTitle(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Task description"
-            className="w-full rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
-            value={newTaskDescription}
-            onChange={(e) => setNewTaskDescription(e.target.value)}
-            required
-            rows={2}
-          />
-          <div className="flex items-center gap-3">
-            <select
-              className="rounded-lg border border-line bg-transparent px-3 py-2 text-sm focus:border-accent focus:outline-none"
-              value={newTaskTimeframe}
-              onChange={(e) => setNewTaskTimeframe(e.target.value)}
-            >
-              <option value="30_days">30 days</option>
-              <option value="60_days">60 days</option>
-              <option value="180_days">180 days</option>
-            </select>
-            <button
-              type="submit"
-              disabled={isAdding}
-              className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-50"
-            >
-              {isAdding ? "Adding..." : "Add task"}
-            </button>
-          </div>
-        </div>
-      </form>
     </div>
   );
 }

@@ -21,12 +21,20 @@ const VISA_NAME_TO_TAG: Record<string, string> = {
   "EB-2 NIW": "EB-2 NIW",
 };
 
+// "General" (broad/not-visa-specific items — the classifier is explicitly
+// instructed to use this tag) and "F-1"/"H-1B" (the app's own pathway
+// tools, and the policy-watch page explicitly promises coverage of both)
+// are relevant to every domain — there's no clean per-domain mapping for
+// a status tag, and excluding them entirely (as before) silently hid
+// items the UI promised users would see.
+const UNIVERSAL_TAGS = ["General", "F-1", "H-1B"];
+
 const DOMAIN_TO_TAGS: Record<string, string[]> = {
-  stem: ["O-1", "EB-1A", "EB-1B", "EB-2 NIW"],
-  arts: ["O-1B", "EB-1A"],
-  business: ["O-1", "EB-1A", "EB-2 NIW"],
-  athletics: ["O-1", "EB-1A"],
-  education: ["O-1", "EB-1A", "EB-2 NIW"],
+  stem: ["O-1", "EB-1A", "EB-1B", "EB-2 NIW", ...UNIVERSAL_TAGS],
+  arts: ["O-1B", "EB-1A", ...UNIVERSAL_TAGS],
+  business: ["O-1", "EB-1A", "EB-2 NIW", ...UNIVERSAL_TAGS],
+  athletics: ["O-1", "EB-1A", ...UNIVERSAL_TAGS],
+  education: ["O-1", "EB-1A", "EB-2 NIW", ...UNIVERSAL_TAGS],
 };
 
 export function isPolicyItemRelevant(

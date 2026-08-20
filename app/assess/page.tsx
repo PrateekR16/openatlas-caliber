@@ -3,10 +3,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { AppHeader } from "@/components/AppHeader";
 import { getProfile } from "@/lib/profile";
-import { listUserAssessments, listUserIncompleteTasks, getUserRelevantDomains, getSeenPolicyItemIds, type DbAssessment, type DbTask } from "@/lib/db";
+import { listUserAssessments, getUserRelevantDomains, getSeenPolicyItemIds, type DbAssessment } from "@/lib/db";
 import { getVisa } from "@/lib/visas";
 import { getPolicyWatch, isPolicyItemRelevant } from "@/lib/policy/watch";
-import { TaskList } from "./TaskList";
 
 export default async function Assess() {
   const session = await auth();
@@ -27,14 +26,12 @@ export default async function Assess() {
   }
 
   let assessments: DbAssessment[] = [];
-  let tasks: DbTask[] = [];
   let newPolicyUpdatesCount = 0;
 
   if (user?.email) {
     try {
       assessments = await listUserAssessments(user.email);
-      tasks = await listUserIncompleteTasks(user.email);
-      
+
       const [items, relevant, seenIds] = await Promise.all([
         getPolicyWatch(),
         getUserRelevantDomains(user.email),
@@ -56,7 +53,7 @@ export default async function Assess() {
     <div className="flex min-h-screen flex-col">
       <AppHeader email={user?.email} />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
         <p className="text-sm font-medium text-accent">
           Signed in{user?.name ? ` as ${user.name}` : ""}
         </p>
@@ -91,40 +88,33 @@ export default async function Assess() {
             </Link>
           </div>
         ) : (
-          <div className="mt-12 grid gap-10 lg:grid-cols-2">
-            <div>
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xl font-semibold tracking-tight">Past Assessments</h2>
-                <Link
-                  href="/assess/new"
-                  className="text-sm font-medium text-accent hover:underline"
-                >
-                  Start New
-                </Link>
-              </div>
-              <div className="space-y-4">
-                {assessments.map((a) => {
-                  const visa = getVisa(a.visaId);
-                  return (
-                    <Link href={`/assess/${a.id}`} key={a.id} className="block rounded-xl border border-line bg-card p-5 transition hover:border-accent/50 hover:bg-accent/5">
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold">{visa?.name ?? a.visaId}</span>
-                        <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent capitalize">
-                          {a.domain}
-                        </span>
-                      </div>
-                      <p className="mt-1 text-sm text-muted">
-                        {new Date(a.createdAt).toLocaleDateString()}
-                      </p>
-                    </Link>
-                  );
-                })}
-              </div>
+          <div className="mt-12">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-semibold tracking-tight">Past Assessments</h2>
+              <Link
+                href="/assess/new"
+                className="text-sm font-medium text-accent hover:underline"
+              >
+                Start New
+              </Link>
             </div>
-            
-            <div>
-              <h2 className="mb-6 text-xl font-semibold tracking-tight">Outstanding Tasks</h2>
-              <TaskList initialTasks={tasks} />
+            <div className="space-y-4">
+              {assessments.map((a) => {
+                const visa = getVisa(a.visaId);
+                return (
+                  <Link href={`/assess/${a.id}`} key={a.id} className="block rounded-xl border border-line bg-card p-5 transition hover:border-accent/50 hover:bg-accent/5">
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold">{visa?.name ?? a.visaId}</span>
+                      <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent capitalize">
+                        {a.domain}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-muted">
+                      {new Date(a.createdAt).toLocaleDateString()}
+                    </p>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

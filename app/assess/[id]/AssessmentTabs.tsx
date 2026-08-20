@@ -3,23 +3,35 @@
 import { useState } from "react";
 import type { PanelResult } from "@/lib/agents/panel";
 import type { EvidenceItem } from "@/lib/agents/extractor";
+import type { DbTask } from "@/lib/db";
 import { Scorecard } from "../new/[visa]/Scorecard";
+import { AssessmentTaskEditor } from "./AssessmentTaskEditor";
 
-export function EvidenceReRunPanel({
+type Tab = "result" | "plan" | "evidence";
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "result", label: "Assessment Result" },
+  { id: "plan", label: "Action Plan" },
+  { id: "evidence", label: "Edit Evidence" },
+];
+
+export function AssessmentTabs({
   assessmentId,
   initialResult,
   initialEvidence,
+  initialTasks,
 }: {
   assessmentId: string;
   initialResult: PanelResult;
   initialEvidence: EvidenceItem[];
+  initialTasks: DbTask[];
 }) {
+  const [activeTab, setActiveTab] = useState<Tab>("result");
   const [result, setResult] = useState<PanelResult>(initialResult);
   const [evidence, setEvidence] = useState<EvidenceItem[]>(initialEvidence);
   const [rerunning, setRerunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [isEvidenceOpen, setIsEvidenceOpen] = useState(false);
 
   const updateEvidence = (index: number, updates: Partial<EvidenceItem>) => {
     setEvidence((prev) => {
@@ -72,26 +84,39 @@ export function EvidenceReRunPanel({
   };
 
   return (
-    <div className="space-y-8">
-      <Scorecard result={result} />
+    <div className="flex flex-col gap-8 md:flex-row">
+      <nav className="flex shrink-0 flex-row gap-1 md:w-56 md:flex-col">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveTab(tab.id)}
+            className={`rounded-lg px-4 py-2.5 text-left text-sm font-medium transition ${
+              activeTab === tab.id
+                ? "bg-accent-soft text-accent"
+                : "text-muted hover:bg-panel hover:text-ink"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
 
-      <div className="rounded-xl border border-line bg-card">
-        <button
-          onClick={() => setIsEvidenceOpen((o) => !o)}
-          className="flex w-full items-center justify-between px-5 py-4 text-left focus:outline-none"
-        >
-          <span className="font-semibold tracking-tight">Edit evidence</span>
-          <span className="text-muted">{isEvidenceOpen ? "−" : "+"}</span>
-        </button>
+      <div className="min-w-0 flex-1">
+        {activeTab === "result" && <Scorecard result={result} />}
 
-        {isEvidenceOpen && (
-          <div className="space-y-4 border-t border-line p-5">
+        {activeTab === "plan" && (
+          <AssessmentTaskEditor assessmentId={assessmentId} initialTasks={initialTasks} />
+        )}
+
+        {activeTab === "evidence" && (
+          <div className="space-y-4">
             {evidence.length === 0 ? (
               <p className="text-sm text-muted">
-                No evidence recorded for this assessment - add some below to re-run.
+                No evidence recorded for this assessment — add some below to re-run.
               </p>
             ) : (
-              <div className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 {evidence.map((item, index) => (
                   <div key={index} className="space-y-3 rounded-lg border border-line p-4">
                     <div className="flex items-start justify-between gap-4">
@@ -138,19 +163,19 @@ export function EvidenceReRunPanel({
                 <button
                   onClick={handleReRun}
                   disabled={rerunning}
-                  className="w-full rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-50 sm:w-auto self-start"
+                  className="w-full self-start rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-50 sm:w-auto"
                 >
                   {rerunning ? "Re-running..." : "Re-run assessment"}
                 </button>
                 <p className="text-xs text-muted">
-                  This re-runs the adversarial panel against your edited evidence - can take up to 30 seconds.
+                  This re-runs the adversarial panel against your edited evidence — can take up to 30 seconds.
                 </p>
               </div>
 
               {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
               {success && (
                 <p className="mt-3 text-sm text-green-600">
-                  Assessment updated successfully!
+                  Assessment updated successfully! Switch to the Assessment Result tab to see it.
                 </p>
               )}
             </div>

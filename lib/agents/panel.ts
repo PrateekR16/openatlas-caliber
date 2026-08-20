@@ -227,6 +227,12 @@ export async function deepDiveBorderline(
   visa: Visa,
   domain: Domain
 ): Promise<CriterionVerdict[]> {
+  // Each borderline criterion costs 3 SEQUENTIAL live calls (Advocate,
+  // Examiner, Adjudicator) — capping at 3 criteria means up to 9 calls in
+  // one request, on top of the 2-call base flow. That blows both Groq's
+  // ~5 req/min ceiling and the free-tier TPM budget for any real user.
+  // Cap at 1: worst case 3 calls, matching the same "one extra on-demand
+  // call" budget the rest of the app already holds Plan/Letter to.
   const borderline = criteria
     .filter((c) => c.verdict === "partial" || c.confidence === "low")
     .sort((a, b) => {
@@ -235,7 +241,7 @@ export async function deepDiveBorderline(
       const confScore = { low: 1, medium: 2, high: 3 };
       return confScore[a.confidence] - confScore[b.confidence];
     })
-    .slice(0, 3);
+    .slice(0, 1);
 
   if (borderline.length === 0) return criteria;
 
