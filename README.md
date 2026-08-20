@@ -2,6 +2,10 @@
 
 **Do you qualify for a US extraordinary-ability visa? Find out in minutes — transparently, against the real USCIS standard.**
 
+<p align="center">
+  <img src="docs/screenshots/00-landing-hero.png" alt="Caliber Hero" width="100%" />
+</p>
+
 Caliber reads your real achievements the way a US immigration officer would, tells you which visa criteria you meet and *why*, shows how to close the gaps, and drafts a petition argument — turning a $1,000–$2,000, week-long lawyer assessment into a free, self-serve one. Built for the Open Atlas *AI for Social Good* Hackathon (Immigration & Mobility track).
 
 > **Not legal advice.** Caliber provides an informational self-assessment only and is not a substitute for a licensed immigration attorney.
@@ -30,18 +34,23 @@ Caliber's bet: the assessment itself — reading evidence against a legal standa
 
 | 1. Visa Selection | 2. Evidence Intake |
 |:---:|:---:|
-| ![Visa Selection](docs/screenshots/00-visa-selection.png) | ![Evidence Intake](docs/screenshots/01-evidence-intake.png) |
+| ![Visa Selection](docs/screenshots/01-visa-selection.png) | ![Evidence Intake](docs/screenshots/02-evidence-intake.png) |
 | *Select from O-1A, EB-1A, O-1B, EB-1B, and EB-2 NIW pathways.* | *Domain selection & automated source aggregation (GitHub, OpenAlex, Résumé PDF, Media).* |
 
 | 3. Live Extraction | 4. Criterion Evidence Mapping |
 |:---:|:---:|
-| ![Evidence Gathered](docs/screenshots/02-evidence-gathered.png) | ![Extracted Criteria Mapping](docs/screenshots/03-extracted-criteria-mapping.png) |
+| ![Evidence Gathered](docs/screenshots/03-evidence-gathered.png) | ![Extracted Criteria Mapping](docs/screenshots/04-extracted-criteria-mapping.png) |
 | *Real-time parsing of candidate metrics, repositories, citations, and background.* | *Structured evidence items mapped against legal criteria for adversarial reasoning.* |
 
 | 5. Adversarial Panel Verdict | 6. Strategic Action Plan |
 |:---:|:---:|
-| ![Adversarial Panel Verdict](docs/screenshots/04-adversarial-panel-verdict.png) | ![Strategic Action Plan](docs/screenshots/06-strategic-action-plan.png) |
+| ![Adversarial Panel Verdict](docs/screenshots/05-adversarial-panel-verdict.png) | ![Strategic Action Plan](docs/screenshots/06-strategic-action-plan.png) |
 | *Transparent Advocate, Examiner, and Adjudicator arguments with step-by-step gap guidance.* | *Phased 30/60/180-day roadmap with concrete gap-closing action items.* |
+
+| 7. Saved Assessments Dashboard | 8. Authentication & Demo Mode |
+|:---:|:---:|
+| ![Saved Assessments](docs/screenshots/07-user-assessments-dashboard.png) | ![Authentication](docs/screenshots/08-signin-auth.png) |
+| *Manage, re-run, or delete past assessments with full persistence.* | *Google OAuth or 1-click local development demo login.* |
 
 ## Agentic architecture
 
