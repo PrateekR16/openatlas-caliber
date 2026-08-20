@@ -26,6 +26,18 @@ Caliber's bet: the assessment itself — reading evidence against a legal standa
 - **Policy Watch** — a live feed of recent US immigration rule changes from the Federal Register, AI-summarized and tagged, with a personalized "new for you" flag based on your saved domain and visa history.
 - **Optional profile** — save your details once, including domain-specific evidence, and every new assessment prefills automatically.
 
+## Product Walkthrough
+
+| 1. Evidence Intake | 2. Live Extraction |
+|:---:|:---:|
+| ![Evidence Intake](docs/screenshots/01-evidence-intake.png) | ![Evidence Gathered](docs/screenshots/02-evidence-gathered.png) |
+| *Domain selection & automated source aggregation (GitHub, OpenAlex, Résumé PDF, Media).* | *Real-time parsing of candidate metrics, repositories, citations, and background.* |
+
+| 3. Criterion-Tagged Evidence Mapping | 4. Adversarial Panel Verdict |
+|:---:|:---:|
+| ![Extracted Criteria Mapping](docs/screenshots/03-extracted-criteria-mapping.png) | ![Adversarial Panel Verdict](docs/screenshots/04-adversarial-panel-verdict.png) |
+| *Structured evidence items mapped against legal criteria for adversarial reasoning.* | *Transparent Advocate, Examiner, and Adjudicator arguments with step-by-step gap guidance.* |
+
 ## Agentic architecture
 
 Caliber's core principle is **AI proposes, code disposes**: LLMs extract evidence, argue criteria, and draft prose; deterministic TypeScript holds the legal rules, does every count and threshold comparison, and has the final word on what "eligible" means. Nothing an LLM says about a verdict is trusted without code re-deriving it. This shows up at every layer, not just the headline panel.
